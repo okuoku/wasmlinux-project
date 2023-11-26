@@ -1,0 +1,15 @@
+[submodule "lkl-wasm"]
+	path = lkl-wasm
+	url = https://github.com/okuoku/lkl-wasm
+[submodule "busybox"]
+	path = busybox
+	url = https://github.com/okuoku/wasmlinux-busybox
+[submodule "musl"]
+	path = musl
+	url = https://github.com/okuoku/wasmlinux-musl
+[submodule "llvm-project"]
+	path = llvm-project
+	url = https://github.com/llvm/llvm-project
+[submodule "wabt"]
+	path = wabt
+	url = https://github.com/WebAssembly/wabt/
