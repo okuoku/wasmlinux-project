@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /cygdrive/d/wasmlinux/host/bin/clang --target=wasm32 -ffreestanding -Xclang -target-feature -Xclang +atomics $*
