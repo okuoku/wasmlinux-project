@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /cygdrive/d/wasmlinux/host/bin/wasm-ld $*
+exec `dirname $0`/../../host/bin/wasm-ld $*
