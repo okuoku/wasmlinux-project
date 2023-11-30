@@ -1,2 +1,2 @@
 #!/bin/bash
-exec `dirname $0`/../../host/bin/clang --target=wasm32 -Xclang -target-feature -Xclang +atomics $*
+exec cmake -DKERNEL=OFF -P `dirname $0`/../cmake/warp-cc.cmake -- __WARPTOOL__ "$@"
