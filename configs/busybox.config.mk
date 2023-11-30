@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.37.0.git
-# Thu Nov 23 12:03:55 2023
+# Thu Nov 30 23:13:30 2023
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -50,8 +50,8 @@ CONFIG_NOMMU=y
 # CONFIG_FEATURE_SHARED_BUSYBOX is not set
 CONFIG_CROSS_COMPILER_PREFIX=""
 CONFIG_SYSROOT=""
-CONFIG_EXTRA_CFLAGS="-nostdlib -nostdinc -fPIC -isystem /usr/lib/clang/18/include -isystem /home/oku/repos/musl/prefix/include -isystem /home/oku/repos/linux/_hostwasm/prefix/include"
-CONFIG_EXTRA_LDFLAGS="-shared -Wl,--error-limit=0 -L/home/oku/repos/linux/_hostwasm/_lib -lm"
+CONFIG_EXTRA_CFLAGS=""
+CONFIG_EXTRA_LDFLAGS=""
 CONFIG_EXTRA_LDLIBS="m"
 # CONFIG_USE_PORTABLE_CODE is not set
 CONFIG_STACK_OPTIMIZATION_386=y
