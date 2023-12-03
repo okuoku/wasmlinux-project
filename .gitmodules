@@ -13,3 +13,6 @@
 [submodule "wabt"]
 	path = wabt
 	url = https://github.com/WebAssembly/wabt/
+[submodule "runner"]
+	path = runner
+	url = https://github.com/okuoku/wasmlinux-runner
