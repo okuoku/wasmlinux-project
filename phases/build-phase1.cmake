@@ -7,7 +7,7 @@ set(host ${root}/host)
 # Copy .config
 if(NOT EXISTS ${lkl}/.config)
   configure_file(${root}/configs/linux.config.mk
-    ${lkl}/.config)
+    ${lkl}/.config COPYONLY)
 endif()
 
 # Build linux (ignore error)
