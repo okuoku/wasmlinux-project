@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 project(wasmlinux-phase5 C)
 
+set(host ${CMAKE_CURRENT_LIST_DIR}/../../host)
+
 set(kmdist)
 set(umdist)
 if(KMDIST)
@@ -18,9 +20,6 @@ if(NOT UMDIST AND EXISTS ${CMAKE_CURRENT_LIST_DIR}/../../umdist)
   set(umdist ${CMAKE_CURRENT_LIST_DIR}/../../umdist)
 endif()
 
-if(kmdist)
-endif()
-
 set(wasmmodules)
 set(userhashes)
 
@@ -32,6 +31,34 @@ function(hashpath var hash)
     message(FATAL_ERROR "Invalid hashpath: ${hash}")
   endif()
 endfunction()
+
+function(runwasm2c wasm modname)
+  get_filename_component(dir ${wasm} DIRECTORY)
+  add_custom_command(OUTPUT 
+    ${dir}/${modname}.c
+    ${dir}/${modname}.h
+    COMMAND ${host}/bin/wasm2c
+    --module-name=${modname}
+    --enable-threads
+    -o ${modname}.c
+    ${wasm}
+    COMMAND ${CMAKE_COMMAND}
+    -Dhdr=${dir}/${modname}.h
+    -P ${CMAKE_CURRENT_LIST_DIR}/w2cfixup.cmake
+    DEPENDS ${wasm} ${host}/bin/wasm2c
+    ${CMAKE_CURRENT_LIST_DIR}/w2cfixup.cmake
+    WORKING_DIRECTORY ${dir}
+    COMMENT "wasm2c ${modname}"
+    )
+  add_custom_target(${modname}-wasm2c
+    ALL
+    DEPENDS ${dir}/${modname}.c
+    ${dir}/${modname}.h)
+endfunction()
+
+if(kmdist)
+  runwasm2c(${kmdist}/lin.wasm kernel)
+endif()
 
 if(umdist)
   # Enumerate userland modules
@@ -111,9 +138,15 @@ if(umdist)
     endif()
   endforeach()
 
-  # Write modmap.tsv
+  # Write modmap.tsv, invoke wasm2c 
   file(WRITE ${umdist}/wasmlinux/modcache/modmap.tsv "")
   foreach(n ${usernames})
-    file(APPEND ${umdist}/wasmlinux/modcache/modmap.tsv "${nam_${n}} ${n}")
+    set(hash "${nam_${n}}")
+    hashpath(hp ${hash})
+    file(APPEND ${umdist}/wasmlinux/modcache/modmap.tsv "${hash}\t${n}")
+    #runwasm2c(${umdist}/wasmlinux/modcache/${hp}/base.wasm ${n})
+    # TENTATIVE!
+    runwasm2c(${umdist}/wasmlinux/modcache/${hp}/base.wasm user)
   endforeach()
+
 endif()
