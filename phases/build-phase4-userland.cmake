@@ -6,8 +6,10 @@ set(host ${root}/host)
  
 # Copy .config
 if(NOT EXISTS ${busybox}/.config)
-  configure_file(${root}/configs/busybox.config.mk
-    ${lkl}/.config COPYONLY)
+  execute_process(
+    COMMAND ${CMAKE_COMMAND} -E copy
+    ${root}/configs/busybox.config.mk
+    ${busybox}/.config)
 endif()
  
 execute_process(
