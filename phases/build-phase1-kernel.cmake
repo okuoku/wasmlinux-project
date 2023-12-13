@@ -6,13 +6,16 @@ set(host ${root}/host)
 
 # Copy .config
 if(NOT EXISTS ${lkl}/.config)
-  configure_file(${root}/configs/linux.config.mk
-    ${lkl}/.config COPYONLY)
+  execute_process(COMMAND ${CMAKE_COMMAND}
+    -E copy ${root}/configs/linux.config.mk
+    ${lkl}/.config)
 endif()
 
 # Build linux (ignore error)
 # FIXME Adjust path on Cygwin
 if(CYGWIN)
+  get_filename_component(cmakebin ${CMAKE_COMMAND} DIRECTORY)
+  set(ENV{PATH} "${cmakebin}:/usr/bin")
 elseif(APPLE)
   set(ENV{PATH} "${root}/_macfixup/bin:$ENV{PATH}")
 endif()
