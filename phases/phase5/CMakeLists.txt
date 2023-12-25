@@ -144,9 +144,7 @@ if(umdist)
     set(hash "${nam_${n}}")
     hashpath(hp ${hash})
     file(APPEND ${umdist}/wasmlinux/modcache/modmap.tsv "${hash}\t${n}")
-    #runwasm2c(${umdist}/wasmlinux/modcache/${hp}/base.wasm ${n})
-    # TENTATIVE!
-    runwasm2c(${umdist}/wasmlinux/modcache/${hp}/base.wasm user)
+    runwasm2c(${umdist}/wasmlinux/modcache/${hp}/base.wasm ${n}_base_w2c)
   endforeach()
 
 endif()
