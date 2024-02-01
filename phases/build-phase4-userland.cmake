@@ -25,7 +25,22 @@ if(rr)
   message(FATAL_ERROR "Err: ${rr}")
 endif()
 
+# Don't strip busybox binary
 execute_process(
   COMMAND ${CMAKE_COMMAND} -E copy
-  ${busybox}/busybox_unstripped ${root}/umdist/bin/busybox)
+  ${busybox}/busybox_unstripped ${busybox}/busybox)
+
+
+execute_process(
+  COMMAND make -j10
+  AR=${toolchain}/bin/warp-ar
+  CC=${toolchain}/bin/warp-hosted-cc
+  install
+  WORKING_DIRECTORY ${busybox}
+  RESULT_VARIABLE rr
+  )
+
+if(rr)
+  message(FATAL_ERROR "Err: ${rr}")
+endif()
 
