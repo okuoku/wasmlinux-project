@@ -16,3 +16,6 @@
 [submodule "runner"]
 	path = runner
 	url = https://github.com/okuoku/wasmlinux-runner
+[submodule "emsdk"]
+	path = emsdk
+	url = https://github.com/emscripten-core/emsdk
