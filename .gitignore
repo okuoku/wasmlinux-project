@@ -1,0 +1,9 @@
+# Host tools
+host/
+
+# SDK installations
+prefix/
+
+# Build artifacts
+kmdist/
+umdist/
