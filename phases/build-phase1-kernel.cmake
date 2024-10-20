@@ -21,6 +21,20 @@ elseif(APPLE)
 endif()
 
 execute_process(
+  COMMAND make 
+  ARCH=lkl CC=${toolchain}/bin/warp-cc
+  LD=${toolchain}/bin/warp-ld
+  AR=${toolchain}/bin/warp-ar
+  NM=${toolchain}/bin/warp-nm
+  OBJCOPY=${host}/bin/llvm-objcopy
+  KALLSYMS_EXTRA_PASS=1
+  CONFIG_OUTPUT_FORMAT=wasm32
+  CROSS_COMPILE=wasm32
+  olddefconfig
+  WORKING_DIRECTORY ${lkl}
+  )
+
+execute_process(
   COMMAND make -j10 -C tools/lkl
   ARCH=lkl CC=${toolchain}/bin/warp-cc
   LD=${toolchain}/bin/warp-ld
